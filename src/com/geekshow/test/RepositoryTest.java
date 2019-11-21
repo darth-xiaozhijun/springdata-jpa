@@ -9,6 +9,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.geekshow.dao.UsersDao;
 import com.geekshow.dao.UsersDao2;
 import com.geekshow.pojo.Users;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,9 @@ public class RepositoryTest {
 
 	@Autowired
 	private UsersDao2 usersDao;
+	
+	@Autowired
+	private UsersDao userDao2;
 	
 	/**
 	 * 需求：使用用户名作为查询条件
@@ -140,4 +144,15 @@ public class RepositoryTest {
     public void test10(){
         this.usersDao.updateUserAgeByIdUseJPQL(24, 1);
     }
+    
+    /**
+	 * 查询全部数据
+	 */
+	@Test
+	public void test11(){
+		List<Users> list  = this.userDao2.findAll();
+		for (Users users : list) {
+			System.out.println(users);
+		}
+	}
 }
