@@ -62,4 +62,37 @@ public class RepositoryTest {
 			System.out.println(users);
 		}
 	}
+
+    /**
+     * 测试@Query查询 JPQL
+     */
+    @Test
+    public void test4(){
+        List<Users> list = this.usersDao.queryUserByNameUseJPQL("王五");
+        for (Users users : list) {
+            System.out.println(users);
+        }
+    }
+
+    /**
+     * 测试@Query查询 JPQL
+     */
+    @Test
+    public void test5(){
+        List<Users> list = this.usersDao.queryUserByLikeNameUseJPQL("王%");
+        for (Users users : list) {
+            System.out.println(users);
+        }
+    }
+
+    /**
+     * 测试@Query查询 JPQL
+     */
+    @Test
+    public void test6(){
+        List<Users> list = this.usersDao.queryUserByNameAndAgeUseJPQL("王五", 22);
+        for (Users users : list) {
+            System.out.println(users);
+        }
+    }
 }

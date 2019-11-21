@@ -2,6 +2,7 @@ package com.geekshow.dao;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
 import com.geekshow.pojo.Users;
@@ -34,5 +35,15 @@ public interface UsersDao2 extends Repository<Users, Integer>{
 	 * @return
 	 */
 	List<Users> findByUsernameAndUserageGreaterThanEqual(String name,Integer age);
+
+    //使用@Query注解查询
+    @Query(value="from Users where username = ?")
+    List<Users> queryUserByNameUseJPQL(String name);
+
+    @Query("from Users where username like ?")
+    List<Users> queryUserByLikeNameUseJPQL(String name);
+
+    @Query("from Users where username = ? and userage >= ?")
+    List<Users> queryUserByNameAndAgeUseJPQL(String name,Integer age);
 
 }
