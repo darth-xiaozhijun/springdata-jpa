@@ -36,7 +36,7 @@ public interface UsersDao2 extends Repository<Users, Integer>{
 	 */
 	List<Users> findByUsernameAndUserageGreaterThanEqual(String name,Integer age);
 
-    //使用@Query注解查询
+    //使用@Query注解查询JPQL
     @Query(value="from Users where username = ?")
     List<Users> queryUserByNameUseJPQL(String name);
 
@@ -46,4 +46,14 @@ public interface UsersDao2 extends Repository<Users, Integer>{
     @Query("from Users where username = ? and userage >= ?")
     List<Users> queryUserByNameAndAgeUseJPQL(String name,Integer age);
 
+    //使用@Query注解查询SQL
+    //nativeQuery:默认的是false.表示不开启sql查询。是否对value中的语句做转义。
+    @Query(value="select * from t_users where username = ?",nativeQuery=true)
+    List<Users> queryUserByNameUseSQL(String name);
+
+    @Query(value="select * from t_users where username like ?",nativeQuery=true)
+    List<Users> queryUserByLikeNameUseSQL(String name);
+
+    @Query(value="select * from t_users where username = ? and userage >= ?",nativeQuery=true)
+    List<Users> queryUserByNameAndAgeUseSQL(String name,Integer age);
 }

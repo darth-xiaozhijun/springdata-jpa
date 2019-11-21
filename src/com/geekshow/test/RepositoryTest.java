@@ -95,4 +95,37 @@ public class RepositoryTest {
             System.out.println(users);
         }
     }
+
+    /**
+     * 测试@Query查询 SQL
+     */
+    @Test
+    public void test7(){
+        List<Users> list = this.usersDao.queryUserByNameUseSQL("王五");
+        for (Users users : list) {
+            System.out.println(users);
+        }
+    }
+
+    /**
+     * 测试@Query查询 SQL
+     */
+    @Test
+    public void test8(){
+        List<Users> list = this.usersDao.queryUserByLikeNameUseSQL("王%");
+        for (Users users : list) {
+            System.out.println(users);
+        }
+    }
+
+    /**
+     * 测试@Query查询 SQL
+     */
+    @Test
+    public void test9(){
+        List<Users> list = this.usersDao.queryUserByNameAndAgeUseSQL("王五", 22);
+        for (Users users : list) {
+            System.out.println(users);
+        }
+    }
 }
