@@ -5,11 +5,13 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.geekshow.dao.UsersDao2;
 import com.geekshow.pojo.Users;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Repository接口测试
@@ -127,5 +129,15 @@ public class RepositoryTest {
         for (Users users : list) {
             System.out.println(users);
         }
+    }
+
+    /**
+     * 测试@Query update
+     */
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void test10(){
+        this.usersDao.updateUserAgeByIdUseJPQL(24, 1);
     }
 }

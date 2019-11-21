@@ -2,6 +2,7 @@ package com.geekshow.dao;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
@@ -56,4 +57,8 @@ public interface UsersDao2 extends Repository<Users, Integer>{
 
     @Query(value="select * from t_users where username = ? and userage >= ?",nativeQuery=true)
     List<Users> queryUserByNameAndAgeUseSQL(String name,Integer age);
+
+    @Query("update Users set userage = ? where userid = ?")
+    @Modifying//@Modifying当前语句是一个更新语句
+    void updateUserAgeByIdUseJPQL(Integer age,Integer id);
 }
