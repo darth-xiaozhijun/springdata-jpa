@@ -1,5 +1,6 @@
 package com.geekshow.test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -53,4 +54,29 @@ public class JpaSpecificationExecutorTest {
 			System.out.println(users);
 		}
 	}
+
+    /**
+     * 多条件查询 方式一
+     * 需求：使用用户姓名以及年龄查询数据
+     */
+    @Test
+    public void test2(){
+        Specification<Users> spec = new Specification<Users>() {
+
+            @Override
+            public Predicate toPredicate(Root<Users> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                List<Predicate> list = new ArrayList<>();
+                list.add(cb.equal(root.get("username"),"王小小"));
+                list.add(cb.equal(root.get("userage"),24));
+                //此时条件之间是没有任何关系的。
+                Predicate[] arr = new Predicate[list.size()];
+                return cb.and(list.toArray(arr));
+            }
+
+        };
+        List<Users> list = this.usersDao.findAll(spec);
+        for (Users users : list) {
+            System.out.println(users);
+        }
+    }
 }
