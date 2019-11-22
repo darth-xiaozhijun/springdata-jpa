@@ -171,4 +171,32 @@ public class JpaSpecificationExecutorTest {
             System.out.println(users);
         }
     }
+
+    /**
+     * 需求：查询数据库中王姓的用户，做分页处理，并且根据用户id做倒序排序
+     */
+    @Test
+    public void test7(){
+        //排序等定义
+        Sort sort = new Sort(Sort.Direction.DESC,"userid");
+        //分页的定义
+        Pageable pageable = new PageRequest(0,2, sort);
+
+        //查询条件
+        Specification<Users> spec = new Specification<Users>() {
+
+            @Override
+            public Predicate toPredicate(Root<Users> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.like(root.get("username").as(String.class), "王%");
+            }
+
+        };
+        Page<Users> page = this.usersDao.findAll(spec, pageable);
+        System.out.println("总条数："+page.getTotalElements());
+        System.out.println("总页数："+page.getTotalPages());
+        List<Users> list = page.getContent();
+        for (Users users : list) {
+            System.out.println(users);
+        }
+    }
 }
