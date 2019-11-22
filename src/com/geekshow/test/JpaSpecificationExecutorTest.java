@@ -79,4 +79,44 @@ public class JpaSpecificationExecutorTest {
             System.out.println(users);
         }
     }
+
+    /**
+     * 多条件查询 方式二
+     * 需求：使用用户姓名或者年龄查询数据
+     */
+    @Test
+    public void test3(){
+        Specification<Users> spec = new Specification<Users>() {
+
+            @Override
+            public Predicate toPredicate(Root<Users> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.or(cb.equal(root.get("username"),"王小小"),cb.equal(root.get("userage"), 22));
+            }
+
+        };
+        List<Users> list = this.usersDao.findAll(spec);
+        for (Users users : list) {
+            System.out.println(users);
+        }
+    }
+
+    /**
+     * 多条件查询 方式二
+     * 需求：使用用户姓名以及年龄查询数据
+     */
+    @Test
+    public void test4(){
+        Specification<Users> spec = new Specification<Users>() {
+
+            @Override
+            public Predicate toPredicate(Root<Users> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.and(cb.equal(root.get("username"),"王小小"),cb.equal(root.get("userage"), 22));
+            }
+
+        };
+        List<Users> list = this.usersDao.findAll(spec);
+        for (Users users : list) {
+            System.out.println(users);
+        }
+    }
 }
