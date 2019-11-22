@@ -11,6 +11,9 @@ import javax.persistence.criteria.Root;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -115,6 +118,32 @@ public class JpaSpecificationExecutorTest {
 
         };
         List<Users> list = this.usersDao.findAll(spec);
+        for (Users users : list) {
+            System.out.println(users);
+        }
+    }
+
+    /**
+     * 需求：查询王姓用户，并且做分页处理
+     */
+    @Test
+    public void test5(){
+        //条件
+        Specification<Users> spec = new Specification<Users>() {
+
+            @Override
+            public Predicate toPredicate(Root<Users> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.like(root.get("username").as(String.class), "王%");
+            }
+
+        };
+
+        //分页
+        Pageable pageable = new PageRequest(0, 2);
+        Page<Users> page = this.usersDao.findAll(spec, pageable);
+        System.out.println("总条数："+page.getTotalElements());
+        System.out.println("总页数："+page.getTotalPages());
+        List<Users> list = page.getContent();
         for (Users users : list) {
             System.out.println(users);
         }
