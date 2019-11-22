@@ -1,8 +1,9 @@
-package com.geekshow.dao;
+package com.geekshow.dao.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.geekshow.dao.UsersRepository;
 import com.geekshow.pojo.Users;
 
 public class UsersDaoImpl implements UsersRepository {
