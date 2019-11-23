@@ -61,8 +61,7 @@ public class Card{
 
 	@Override
 	public String toString() {
-		return "IdCard [cardid=" + cardid + ", cardno=" + cardno + ", cardaddr=" + cardaddr + ", people=" + people
-				+ "]";
+		return "IdCard [cardid=" + cardid + ", cardno=" + cardno + ", cardaddr=" + cardaddr + "]";
 	}
 	
 	

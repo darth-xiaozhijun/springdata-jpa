@@ -71,8 +71,7 @@ public class People implements Serializable{
 
 	@Override
 	public String toString() {
-		return "People [peopleid=" + peopleid + ", peoplename=" + peoplename + ", peopleage=" + peopleage + ", card="
-				+ card + "]";
+		return "People [peopleid=" + peopleid + ", peoplename=" + peoplename + ", peopleage=" + peopleage + "]";
 	}
 
 }

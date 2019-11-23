@@ -50,5 +50,10 @@ public class One2OneTest {
 	 */
 	@Test
 	public void test2(){
+		
+		People people = peopleDao.findOne(1);
+		System.out.println("用户信息："+people);
+		Card card = people.getCard();
+		System.out.println(card);
 	}
 }
