@@ -2,11 +2,14 @@ package com.geekshow.pojo;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +26,10 @@ public class Users implements Serializable{
 	
 	@Column(name="userage")
 	private Integer userage;
+	
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="roles_id")
+	private Roles roles;
 
 	public Integer getUserid() {
 		return userid;
@@ -46,6 +53,14 @@ public class Users implements Serializable{
 
 	public void setUserage(Integer userage) {
 		this.userage = userage;
+	}
+
+	public Roles getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Roles roles) {
+		this.roles = roles;
 	}
 
 	@Override
